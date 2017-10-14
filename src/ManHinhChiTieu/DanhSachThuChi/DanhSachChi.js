@@ -6,7 +6,8 @@ import {
     Dimensions,
     FlatList
 } from 'react-native';
-
+import moment from 'moment';
+import global from '../../global/global';
 const { height, width } = Dimensions.get('window');
 
 export default class DanhSachChi extends Component {
@@ -21,10 +22,11 @@ export default class DanhSachChi extends Component {
             ],
             refresh: false,
         }
+        global.loadDanhSachChi = this.loadDanhSachChi.bind(this);
     }
     componentDidMount() {
        
-        fetch('http://192.168.215.2:8080/APIQuanLyChiTieu/layTatCaChi.php',
+        fetch(global.urlAPI +'layTatCaChi.php',
             {
                 "method": "POST",
                 headers: {
@@ -39,12 +41,17 @@ export default class DanhSachChi extends Component {
         )
             .then(res => res.json())
             .then(resjson => {
-                console.log('aa',resjson)
+                console.log('load danh sách chi',resjson)
                 this.setState({
                     mang: resjson
                 });
             })
             .catch(e => console.log(e));
+    }
+    loadDanhSachChi(resjson){
+        this.setState({
+            mang: resjson
+        });
     }
     render() {
         return (
@@ -54,18 +61,18 @@ export default class DanhSachChi extends Component {
                     data={this.state.mang}
                     renderItem={({ item }) =>
                     <TouchableOpacity style={{ padding: 10 , margin: 5, width:width-20, backgroundColor: '#08cad6', borderRadius: 10, flexDirection:'row'}}
-                    onPress={() => { this.props.navigation.navigate('ManHinh_ChiTietChi', {id:item.key})  }}>
+                    onPress={() => { this.props.navigation.navigate('ManHinh_ChiTietChi', {id:item.key, idTaiKhoan:this.props.navigation.state.params.id})  }}>
 
                     <View style={{flex:1}}>
                         <Text>hinh</Text>
                         </View>
                        <View style={{flex:3}}>
-                        <Text>Ngày: {item.NGAY}</Text>
+                        <Text>Ngày: {moment(item.NGAY).format('DD-MM-YYYY')}</Text>
                         <Text>Số tiền: {item.TIEN} đồng</Text>
                         </View>
                     </TouchableOpacity>
                     }
-
+         
                 />
             </View>
         );

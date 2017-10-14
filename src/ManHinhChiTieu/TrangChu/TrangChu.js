@@ -40,6 +40,7 @@ export default class TrangChu extends Component {
         .then(id => this.kiemTraDangNhap(id))
    
     }
+    
   
     
  
@@ -297,12 +298,12 @@ export default class TrangChu extends Component {
                 <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#08cad6', borderRadius: 5, margin: 5, marginRight: 10, marginLeft: 10, flexDirection: 'row' }}
                     onPress={() => { this.props.navigation.navigate('ManHinh_KeHoach') }}>
                     <Image source={daidien} style={{ width: 10, height: 30, borderRadius: 75, flex: 1 }} />
-                    <Text style={{ fontSize: 20, color: 'white', fontWeight: '200', flex: 3, marginLeft: 10 }}>Kế hoạch</Text>
+                    <Text style={{ fontSize: 20, color: 'white', fontWeight: '200', flex: 3, marginLeft: 10 }}>Chia sẻ tài khoản</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f06090', borderRadius: 5, margin: 5, marginRight: 10, marginLeft: 10, flexDirection: 'row' }}
                     onPress={() => { this.props.navigation.navigate('ManHinh_ChiaSe', {id:this.state.id}) }}>
                     <Image source={daidien} style={{ width: 10, height: 30, borderRadius: 75, flex: 1 }} />
-                    <Text style={{ fontSize: 20, color: 'white', fontWeight: '200', flex: 3, marginLeft: 10 }}>Chia sẽ</Text>
+                    <Text style={{ fontSize: 20, color: 'white', fontWeight: '200', flex: 3, marginLeft: 10 }}>Được chia sẻ</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#4dce96', borderRadius: 5, margin: 5, marginRight: 10, marginLeft: 10, flexDirection: 'row' }}
                     onPress={() => { this.props.navigation.navigate('ManHinh_ThongKe') }}>

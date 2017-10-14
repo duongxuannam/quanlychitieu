@@ -6,6 +6,7 @@ import {
     FlatList,
     Dimensions
 } from 'react-native';
+import global from '../../global/global';
 
 const { height, width } = Dimensions.get('window');
 
@@ -24,7 +25,7 @@ export default class ChiaSe extends Component {
         }
     }
     componentDidMount() {
-        fetch('http://192.168.215.2:8080/APIQuanLyChiTieu/layTatCaChiaSe.php',
+        fetch(global.urlAPI + 'layTatCaChiaSe.php',
             {
                 "method": "POST",
                 headers: {

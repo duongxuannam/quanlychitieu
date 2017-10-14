@@ -2831,6 +2831,10 @@ minimist@~0.0.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+
 morgan@~1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.6.1.tgz#5fd818398c6819cba28a7cd6664f292fe1c0bbf2"
@@ -3293,6 +3297,10 @@ react-native-calendars@^1.6.2:
   dependencies:
     prop-types "^15.5.10"
     xdate "^0.8.0"
+
+react-native-datepicker-dialog@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-datepicker-dialog/-/react-native-datepicker-dialog-0.0.6.tgz#4e4ca34c311d35cb5c10efa6a438574602f45e56"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"

@@ -85,14 +85,14 @@ setStateMenu(obj){
           <Text style={styles.text}>Thông tin</Text>
 
         </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonSignIn} onPress={()=>{
+          {/* <TouchableOpacity style={styles.buttonSignIn} onPress={()=>{
             
             this.props.navigation.navigate('ManHinh_ThayDoiThongTin')
             
             }}>
             <Text style={styles.text}>Được chia sẽ</Text>
 
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.buttonSignIn}  onPress={()=>{
             
@@ -101,7 +101,8 @@ setStateMenu(obj){
             this.props.navigation.navigate('DrawerClose'); 
             this.setState({
               tenhienthi:''
-            })
+            });
+            this.props.navigation.navigate('ManHinh_TrangChu')
             }}>
             <Text style={styles.text}>Đăng xuất</Text>
 

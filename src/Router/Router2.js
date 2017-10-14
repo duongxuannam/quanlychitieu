@@ -16,10 +16,6 @@ import ThongTin from '../ManHinhChiTieu/ThongTin/ThongTin';
 import ThayDoiThongTin from '../ManHinhChiTieu/ThayDoiThongTin/ThayDoiThongTin';
 import ChiaSe from '../ManHinhChiTieu/ChiaSe/ChiaSe';
 import TaiKhoanChiaSe from '../ManHinhChiTieu/TaiKhoanChiaSe/TaiKhoanChiaSe';
-import Nhom from '../ManHinhChiTieu/Thu/Nhom';
-import VoiAi from '../ManHinhChiTieu/Thu/VoiAi';
-import NhomChi from '../ManHinhChiTieu/Chi/Nhom';
-import VoiAiChi from '../ManHinhChiTieu/Chi/VoiAi';
 import Lich from '../ManHinhChiTieu/Lich/Lich';
 import DanhSachThu from '../ManHinhChiTieu/DanhSachThuChi/DanhSachThu';
 import DanhSachChi from '../ManHinhChiTieu/DanhSachThuChi/DanhSachChi';
@@ -78,18 +74,6 @@ export const StackTrangChu = StackNavigator({
     },
     ManHinh_TaiKhoanChiaSe: {
         screen: TaiKhoanChiaSe
-    },
-    ManHinh_Nhom: {
-        screen: Nhom
-    },
-    ManHinh_VoiAi: {
-        screen: VoiAi
-    },
-    ManHinh_NhomChi: {
-        screen: NhomChi
-    },
-    ManHinh_VoiAiChi: {
-        screen: VoiAiChi
     },
     ManHinh_Lich: {
         screen: Lich
