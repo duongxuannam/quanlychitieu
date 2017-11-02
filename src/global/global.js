@@ -1,5 +1,5 @@
 module.exports = {
-    urlAPI: 'http://192.168.215.2:8080/APIQuanLyChiTieu/',
+    urlAPI: 'http://192.168.1.38:8080/APIQuanLyChiTieu/',
     dangXuat: null,
     chonNgay: null,
     truyenThongTin: null,

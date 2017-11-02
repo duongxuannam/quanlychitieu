@@ -1,4 +1,4 @@
-#Wed Sep 06 21:04:32 PDT 2017
-base.0=C\:\\Users\\Nammm\\Desktop\\HereWeGo\\herewego\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+#Thu Nov 02 20:09:27 ICT 2017
+base.0=C\:\\Users\\duong\\Desktop\\quanlychitieu\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=C\:\\Users\\Nammm\\Desktop\\HereWeGo\\herewego\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=C\:\\Users\\duong\\Desktop\\quanlychitieu\\android\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

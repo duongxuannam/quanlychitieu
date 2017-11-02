@@ -81,7 +81,7 @@ export default class TrangChu extends Component {
 
 
     dangNhapThietNe() {
-        fetch("http://192.168.215.2:8080/APIQuanLyChiTieu/dangNhap.php",
+        fetch(global.urlAPI + 'dangNhap.php',
             {
                 "method": "POST",
                 headers: {
@@ -119,7 +119,7 @@ export default class TrangChu extends Component {
             })
     }
     kiemTraDangNhap(id){
-        fetch("http://192.168.215.2:8080/APIQuanLyChiTieu/kiemTraDangNhap.php",
+        fetch(global.urlAPI + 'kiemTraDangNhap.php',
         {
             "method": "POST",
             headers: {

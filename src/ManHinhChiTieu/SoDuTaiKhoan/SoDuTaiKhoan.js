@@ -5,6 +5,7 @@ import {
     TouchableOpacity, 
     Dimensions,
 } from 'react-native';
+import global from '../../global/global';
 
 const { height, width } = Dimensions.get('window');
 
@@ -23,7 +24,7 @@ export default class SoDuTaiKhoan extends Component {
     }
     componentDidMount() {
         console.log('aa', this.props.navigation.state.params.id);
-        fetch('http://192.168.215.2:8080/APIQuanLyChiTieu/soDuTaiKhoan.php',
+        fetch(global.urlAPI + 'soDuTaiKhoan.php',
         {
             "method": "POST",
             headers: {
