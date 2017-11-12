@@ -19,13 +19,25 @@ class MenuQuanLyChiTieu extends Component {
     };
     global.setStateMenu = this.setStateMenu.bind(this);
   }
-  componentDidMount(){
-    this.getToken()
-    .then(id => this.kiemTraDangNhap(id))
+  // componentDidMount(){
+  //   this.getToken()
+  //   .then(id => this.kiemTraDangNhap(id))
+  //   console.log('state', this.state)
+  //   console.log("ra ho", this.state.tenhienthi)
  
+  // }
+  componentWillMount(){
+    this.getToken()
+    .then(id =>{
+      this.setState({
+      id: id
+    });
+    this.kiemTraDangNhap(id)
+    });
+    console.log('haleloya')
   }
   kiemTraDangNhap(id){
-    fetch("http://192.168.215.2:8080/APIQuanLyChiTieu/kiemTraDangNhap.php",
+    fetch(global.urlAPI + 'kiemTraDangNhap.php',
     {
         "method": "POST",
         headers: {
@@ -40,6 +52,7 @@ class MenuQuanLyChiTieu extends Component {
 )
     .then((res) => res.json())
     .then((res)=>{
+        console.log('ok',res)
         this.setState({
             id: res.ID,
             tenhienthi: res.TenHienThi
@@ -60,6 +73,17 @@ class MenuQuanLyChiTieu extends Component {
     } catch (error) {
         return '';
     }
+}
+getToken2 = async () => {
+  try {
+      const value = await AsyncStorage.getItem('@tenhienthi');
+      if (value !== null) {
+          return JSON.parse(value);
+      }
+      return '';
+  } catch (error) {
+      return '';
+  }
 }
 setStateMenu(obj){
   this.setState({

@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
@@ -19,8 +20,8 @@ export default class Chi extends Component {
         title: 'Thêm khoản chi',
         headerRight: <TouchableOpacity onPress={() => {
             global.luuChi();
-             navigation.goBack();
-    
+            //  navigation.goBack();
+
         }}>
             <Text style={{ marginRight: 20, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Lưu</Text>
         </TouchableOpacity>
@@ -37,34 +38,13 @@ export default class Chi extends Component {
         };
         global.luuChi = this.luuChi.bind(this);
     }
-    luuChi(){
+    luuChi() {
         console.log(this.state);
         console.log(this.props.navigation.state.params.id);
-        fetch(global.urlAPI + 'themChi.php',
-        {
-            "method": "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "idtaikhoan": this.props.navigation.state.params.id,
-                "tenloaichi": this.state.nhom,
-                "ghichu": this.state.ghiChu,
-                "tien": parseInt(this.state.soTien),
-                "ngay":this.state.DateText,
-                "voiai": this.state.voiAi,
-
-            
-            })
-        }
-    )
-        .then((res) => console.log('dc hongz ba', res))
-    
-        .catch(e => {
+        if (this.state.DateText === '' || this.state.soTien === '') {
             Alert.alert(
                 'Lỗi',
-                'bị cái j j á',
+                'Vui lòng nhập đầy đủ thông tin',
                 [
 
 
@@ -72,7 +52,41 @@ export default class Chi extends Component {
                 ],
                 { cancelable: false }
             )
-        })
+        }
+        else {
+            fetch(global.urlAPI + 'themChi.php',
+                {
+                    "method": "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "idtaikhoan": this.props.navigation.state.params.id,
+                        "tenloaichi": this.state.nhom,
+                        "ghichu": this.state.ghiChu,
+                        "tien": parseInt(this.state.soTien),
+                        "ngay": this.state.DateText,
+                        "voiai": this.state.voiAi,
+                    })
+                }
+            )
+                .then((res) => console.log('dc hongz ba', res))
+
+                .catch(e => {
+                    Alert.alert(
+                        'Lỗi',
+                        'bị cái j j á',
+                        [
+
+
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: false }
+                    )
+                });
+                this.props.navigation.goBack();
+        }
     }
 
     chonNhom(nhom) {
@@ -106,7 +120,7 @@ export default class Chi extends Component {
         });
     }
     render() {
-        const ngay = this.state.DateText == '' ? 'Chọn ngày' :  moment(this.state.DateText).format('DD-MM-YYYY');
+        const ngay = this.state.DateText == '' ? 'Chọn ngày' : moment(this.state.DateText).format('DD-MM-YYYY');
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#3499e1', margin: 5, borderRadius: 5, width: width - 20 }}
@@ -135,9 +149,8 @@ export default class Chi extends Component {
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
                     {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
                     <Picker style={{ marginLeft: 20, flex: 3 }}
-                        selectedValue={this.state.chonNguoi}
+                        selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
-                            this.setState({ chonNguoi: nhom });
                             this.chonNguoi(nhom);
                         }}>
                         <Picker.Item label="Ba mẹ" value="Ba mẹ" />

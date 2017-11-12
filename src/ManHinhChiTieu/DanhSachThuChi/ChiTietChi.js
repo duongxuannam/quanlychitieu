@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
@@ -19,10 +20,7 @@ export default class ChiTietChi extends Component {
         title: 'Chỉnh sửa khoản chi',
         headerRight: <TouchableOpacity onPress={() => {
             global.luuChi();
-
-            navigation.goBack();
-          
-
+            // navigation.goBack();
         }}>
             <Text style={{ marginRight: 20, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Lưu</Text>
         </TouchableOpacity>
@@ -38,7 +36,7 @@ export default class ChiTietChi extends Component {
             ghiChu: ''
         };
         global.luuChi = this.luuChi.bind(this);
-       
+
     }
     componentDidMount() {
         console.log('id chi', this.props.navigation.state.params.id);
@@ -69,30 +67,24 @@ export default class ChiTietChi extends Component {
             })
             .catch(e => console.log(e));
     }
- 
+
     luuChi() {
         console.log(this.state);
         console.log(this.props.navigation.state.params.id);
-        fetch(global.urlAPI + 'chinhSuaChi.php',
-            {
-                "method": "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "id": this.props.navigation.state.params.id,
-                    "tenloaichi": this.state.nhom,
-                    "ghichu": this.state.ghiChu,
-                    "tien": parseInt(this.state.soTien),
-                    "ngay": this.state.DateText,
-                    "voiai": this.state.voiAi,
+        if (this.state.DateText === '' || this.state.soTien === '') {
+            Alert.alert(
+                'Lỗi',
+                'Vui lòng nhập đầy đủ thông tin',
+                [
 
 
-                })
-            }
-        )
-            .then((res) => fetch(global.urlAPI + 'layTatCaChi.php',
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false }
+            )
+        }
+        else {
+            fetch(global.urlAPI + 'chinhSuaChi.php',
                 {
                     "method": "POST",
                     headers: {
@@ -100,22 +92,40 @@ export default class ChiTietChi extends Component {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "id": this.props.navigation.state.params.idTaiKhoan
+                        "id": this.props.navigation.state.params.id,
+                        "tenloaichi": this.state.nhom,
+                        "ghichu": this.state.ghiChu,
+                        "tien": parseInt(this.state.soTien),
+                        "ngay": this.state.DateText,
+                        "voiai": this.state.voiAi,
+
+
                     })
                 }
-            ))
-            .then(res => res.json())
-            .then(resjson => {
-                console.log('reload danh sách chi', resjson)
-                // this.setState({
-                //     mang: resjson
-                // });
-                global.loadDanhSachChi(resjson);
-            })
-            .catch(e => console.log(e));
-
-
-
+            )
+                .then((res) => fetch(global.urlAPI + 'layTatCaChi.php',
+                    {
+                        "method": "POST",
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "id": this.props.navigation.state.params.idTaiKhoan
+                        })
+                    }
+                ))
+                .then(res => res.json())
+                .then(resjson => {
+                    console.log('reload danh sách chi', resjson)
+                    // this.setState({
+                    //     mang: resjson
+                    // });
+                    global.loadDanhSachChi(resjson);
+                })
+                .catch(e => console.log(e));
+            this.props.navigation.goBack();
+        }
     }
 
     chonNhom(nhom) {
@@ -178,7 +188,7 @@ export default class ChiTietChi extends Component {
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
                     {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
                     <Picker style={{ marginLeft: 20, flex: 3 }}
-                        selectedValue={this.state.chonNguoi}
+                        selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
                             this.setState({ chonNguoi: nhom });
                             this.chonNguoi(nhom);

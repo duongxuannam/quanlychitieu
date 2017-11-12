@@ -96,7 +96,7 @@ export default class TrangChu extends Component {
         )
             .then((res) => res.json())
             .then((resJson) => {
-                console.log(resJson);
+                console.log('aa',resJson);
                 global.setStateMenu(resJson);
                 this.kiemTraDangNhap(resJson.ID);
                 this.savToken(resJson.ID);
@@ -119,6 +119,7 @@ export default class TrangChu extends Component {
             })
     }
     kiemTraDangNhap(id){
+    
         fetch(global.urlAPI + 'kiemTraDangNhap.php',
         {
             "method": "POST",

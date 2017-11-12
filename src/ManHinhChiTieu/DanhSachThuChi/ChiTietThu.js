@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
@@ -19,7 +20,7 @@ export default class ChiTietThu extends Component {
         title: 'Chỉnh sửa khoản thu',
         headerRight: <TouchableOpacity onPress={() => {
             global.luuThu();
-            navigation.goBack();
+            // navigation.goBack();
         }}>
             <Text style={{ marginRight: 20, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Lưu</Text>
         </TouchableOpacity>
@@ -70,6 +71,19 @@ export default class ChiTietThu extends Component {
     luuThu() {
         console.log(this.state);
         console.log(this.props.navigation.state.params.id);
+        if (this.state.DateText === '' || this.state.soTien === '') {
+            Alert.alert(
+                'Lỗi',
+                'Vui lòng nhập đầy đủ thông tin',
+                [
+
+
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false }
+            )
+        }
+        else {
         fetch(global.urlAPI + 'chinhSuaThu.php',
             {
                 "method": "POST",
@@ -79,7 +93,7 @@ export default class ChiTietThu extends Component {
                 },
                 body: JSON.stringify({
                     "id": this.props.navigation.state.params.id,
-                    "tenloaiThu": this.state.nhom,
+                    "tenloaithu": this.state.nhom,
                     "ghichu": this.state.ghiChu,
                     "tien": parseInt(this.state.soTien),
                     "ngay": this.state.DateText,
@@ -110,8 +124,8 @@ export default class ChiTietThu extends Component {
                 global.loadDanhSachThu(resjson);
             })
             .catch(e => console.log(e));
-
-
+            this.props.navigation.goBack();
+        }
 
     }
 
@@ -175,9 +189,8 @@ export default class ChiTietThu extends Component {
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
                     {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
                     <Picker style={{ marginLeft: 20, flex: 3 }}
-                        selectedValue={this.state.chonNguoi}
+                        selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
-                            this.setState({ chonNguoi: nhom });
                             this.chonNguoi(nhom);
                         }}>
                         <Picker.Item label="Ba mẹ" value="Ba mẹ" />

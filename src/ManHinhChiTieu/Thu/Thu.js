@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
-    Picker
+    Picker,
+    Alert
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
@@ -19,7 +20,7 @@ export default class Thu extends Component {
         title: 'Thêm khoản thu',
         headerRight: <TouchableOpacity onPress={() => {
             global.luuThu();
-            navigation.goBack();
+            // navigation.goBack();
 
         }}>
             <Text style={{ marginRight: 20, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Lưu</Text>
@@ -40,6 +41,19 @@ export default class Thu extends Component {
     luuThu() {
         console.log(this.state);
         console.log(this.props.navigation.state.params.id);
+        if(this.state.DateText === '' || this.state.soTien === ''){
+            Alert.alert(
+                'Lỗi',
+                'Vui lòng nhập đầy đủ thông tin',
+                [
+
+
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false }
+            )
+        }
+        else{
         fetch(global.urlAPI + 'themThu.php',
             {
                 "method": "POST",
@@ -59,7 +73,7 @@ export default class Thu extends Component {
                 })
             }
         )
-            .then((res) => console.log('dc hongz ba', res))
+            .then((res) => console.log('thêm thu thành công', res))
 
             .catch(e => {
                 Alert.alert(
@@ -72,7 +86,9 @@ export default class Thu extends Component {
                     ],
                     { cancelable: false }
                 )
-            })
+            });
+            this.props.navigation.goBack();
+        }
     }
 
     chonNhom(nhom) {
@@ -135,9 +151,8 @@ export default class Thu extends Component {
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
                     {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
                     <Picker style={{ marginLeft: 20, flex: 3 }}
-                        selectedValue={this.state.chonNguoi}
+                        selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
-                            this.setState({ chonNguoi: nhom });
                             this.chonNguoi(nhom);
                         }}>
                         <Picker.Item label="Ba mẹ" value="Ba mẹ" />
