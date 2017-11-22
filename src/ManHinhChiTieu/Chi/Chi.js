@@ -6,11 +6,17 @@ import {
     Dimensions,
     TextInput,
     Picker,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
 import global from '../../global/global';
+import ngaythang from '../../Hinh/ngay.png';
+import va from '../../Hinh/va.png';
+import nh from '../../Hinh/nh.png';
+import gc from '../../Hinh/gc.png';
+import tien from '../../Hinh/tien.png';
 
 
 const { height, width } = Dimensions.get('window');
@@ -85,7 +91,7 @@ export default class Chi extends Component {
                         { cancelable: false }
                     )
                 });
-                this.props.navigation.goBack();
+            this.props.navigation.goBack();
         }
     }
 
@@ -125,9 +131,10 @@ export default class Chi extends Component {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#3499e1', margin: 5, borderRadius: 5, width: width - 20 }}
                 >
-                    {/* onPress={() => { this.props.navigation.navigate('ManHinh_NhomChi', { nhom: this.state.nhom }) }}> */}
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Thuộc nhóm</Text>
-                    {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.nhom}</Text> */}
+                    <View style={{ backgroundColor: '#3499e1', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={nh} style={{ width: 40, height: 40 }} />
+                    </View>
+
                     <Picker style={{ marginLeft: 20, flex: 3 }}
                         selectedValue={this.state.nhom}
                         onValueChange={(nhom) => {
@@ -145,9 +152,9 @@ export default class Chi extends Component {
                     </Picker>
                 </View>
                 <View style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#08cad6', margin: 5, borderRadius: 5, width: width - 20 }}>
-                    {/* onPress={() => { this.props.navigation.navigate('ManHinh_VoiAiChi', { voiAi: this.state.voiAi }) }}>  */}
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
-                    {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
+                    <View style={{ backgroundColor: '#08cad6', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={va} style={{ width: 40, height: 40 }} />
+                    </View>
                     <Picker style={{ marginLeft: 20, flex: 3 }}
                         selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
@@ -162,12 +169,15 @@ export default class Chi extends Component {
                 </View>
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#fd6a60', margin: 5, borderRadius: 5, width: width - 20 }}
                     onPress={this.DatePickerMainFunctionCall.bind(this)}   >
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Thời gian</Text>
+                    <View style={{ backgroundColor: '#fd6a60', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={ngaythang} style={{ width: 40, height: 40 }} />
+                    </View>
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{ngay}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#f06090', margin: 5, borderRadius: 5, width: width - 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Ghi chú</Text>
-                    {/* <Text style={{fontSize: 20, fontWeight:'200', marginLeft:20, flex: 2}}>Ghi chú</Text> */}
+                    <View style={{ backgroundColor: '#f06090', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={gc} style={{ width: 40, height: 40 }} />
+                    </View>
                     <TextInput placeholder='Nhập ghi chú'
                         placeholderTextColor='rgba(255, 255, 255, 0.7)'
                         returnKeyType='go'
@@ -190,11 +200,10 @@ export default class Chi extends Component {
                         )}
                     ></TextInput>
                 </TouchableOpacity>
-
-
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#8974b9', margin: 5, borderRadius: 5, width: width - 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Số tiền</Text>
-                    {/* <Text style={{fontSize: 20, fontWeight:'200', marginLeft:20, flex: 3}}>Số tiền</Text> */}
+                    <View style={{ backgroundColor: '#8974b9', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={tien} style={{ width: 40, height: 40 }} />
+                    </View>
                     <TextInput placeholder='Nhập số tiền'
                         placeholderTextColor='rgba(255, 255, 255, 0.7)'
                         returnKeyType='go' keyboardType='numeric'

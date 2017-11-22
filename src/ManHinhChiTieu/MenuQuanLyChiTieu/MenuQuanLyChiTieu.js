@@ -7,15 +7,15 @@ import {
   Image,
   AsyncStorage
 } from 'react-native';
-import daidien from '../../profile.png';
+import daidien from '../../Hinh/profile.png';
 import global from '../../global/global';
 
 class MenuQuanLyChiTieu extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      id:'',
-      tenhienthi:''
+    this.state = {
+      id: '',
+      tenhienthi: ''
     };
     global.setStateMenu = this.setStateMenu.bind(this);
   }
@@ -24,92 +24,82 @@ class MenuQuanLyChiTieu extends Component {
   //   .then(id => this.kiemTraDangNhap(id))
   //   console.log('state', this.state)
   //   console.log("ra ho", this.state.tenhienthi)
- 
+
   // }
-  componentWillMount(){
+  componentWillMount() {
     this.getToken()
-    .then(id =>{
-      this.setState({
-      id: id
-    });
-    this.kiemTraDangNhap(id)
-    });
+      .then(id => {if(!id.Loi){
+        this.setState({
+          id: id
+        });
+        this.kiemTraDangNhap(id)
+      }
+       
+      });
+  
     console.log('haleloya')
   }
-  kiemTraDangNhap(id){
+  kiemTraDangNhap(id) {
     fetch(global.urlAPI + 'kiemTraDangNhap.php',
-    {
+      {
         "method": "POST",
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "id": id
-            
+          "id": id
+
         })
-    }
-)
-    .then((res) => res.json())
-    .then((res)=>{
-        console.log('ok',res)
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('ok', res)
         this.setState({
-            id: res.ID,
-            tenhienthi: res.TenHienThi
+          id: res.ID,
+          tenhienthi: res.TenHienThi
         })
-        if(this.state.id !== null){        
-            console.log('siêu nhân dũng cảm')
+        if (this.state.id !== null) {
+          console.log('siêu nhân dũng cảm')
         }
-    })
-}
+      })
+  }
 
   getToken = async () => {
     try {
-        const value = await AsyncStorage.getItem('@token');
-        if (value !== null) {
-            return JSON.parse(value);
-        }
-        return '';
-    } catch (error) {
-        return '';
-    }
-}
-getToken2 = async () => {
-  try {
-      const value = await AsyncStorage.getItem('@tenhienthi');
+      const value = await AsyncStorage.getItem('@token');
       if (value !== null) {
-          return JSON.parse(value);
+        return value;
       }
-      return '';
-  } catch (error) {
-      return '';
+      return { Loi: 'cmm' };
+    } catch (error) {
+      return { Loi: 'cmm' };
+    }
   }
-}
-setStateMenu(obj){
-  this.setState({
-    id: obj.ID,
-    tenhienthi: obj.TenHienThi
-  })
-}
+
+  setStateMenu(obj) {
+    this.setState({
+      id: obj.ID,
+      tenhienthi: obj.TenHienThi
+    })
+  }
 
   render() {
-    
- 
+
+
     return (
       <View style={styles.container}>
         <Image source={daidien} style={{ width: 150, height: 150, borderRadius: 75, marginVertical: 30 }} />
 
         <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={{ color: 'white', fontSize: 20 }}>{this.state.tenhienthi}</Text>
-        <View><TouchableOpacity style={styles.buttonSignIn} onPress={()=>{
-            
-            this.props.navigation.navigate('ManHinh_ThongTin')
-            
-            }}>
-          <Text style={styles.text}>Thông tin</Text>
+          <Text style={{ color: 'white', fontSize: 20 }}>{this.state.tenhienthi}</Text>
+          <View><TouchableOpacity style={styles.buttonSignIn}
+            onPress={() => { this.props.navigation.navigate('ManHinh_DoiMatKhau', { id: this.state.id }) }}>
+            <Text style={styles.text}>Đổi mật khẩu</Text>
 
-        </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.buttonSignIn} onPress={()=>{
+          </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.buttonSignIn} onPress={()=>{
             
             this.props.navigation.navigate('ManHinh_ThayDoiThongTin')
             
@@ -118,21 +108,21 @@ setStateMenu(obj){
 
           </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.buttonSignIn}  onPress={()=>{
-            
-            {/* this.props.navigation.navigate('ManHinh_TrangChu') */}
-            global.dangXuat();
-            this.props.navigation.navigate('DrawerClose'); 
-            this.setState({
-              tenhienthi:''
-            });
-            this.props.navigation.navigate('ManHinh_TrangChu')
-            }}>
-            <Text style={styles.text}>Đăng xuất</Text>
+            <TouchableOpacity style={styles.buttonSignIn} onPress={() => {
 
-          </TouchableOpacity></View>
-        <View />
-      </View>
+              {/* this.props.navigation.navigate('ManHinh_TrangChu') */ }
+              global.dangXuat();
+              this.props.navigation.navigate('DrawerClose');
+              this.setState({
+                tenhienthi: ''
+              });
+              this.props.navigation.navigate('ManHinh_TrangChu')
+            }}>
+              <Text style={styles.text}>Đăng xuất</Text>
+
+            </TouchableOpacity></View>
+          <View />
+        </View>
 
 
       </View>

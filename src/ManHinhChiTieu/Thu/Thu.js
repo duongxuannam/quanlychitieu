@@ -6,12 +6,17 @@ import {
     Dimensions,
     TextInput,
     Picker,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import { DatePickerDialog } from 'react-native-datepicker-dialog';
 import moment from 'moment';
 import global from '../../global/global';
-
+import ngaythang from '../../Hinh/ngay.png';
+import va from '../../Hinh/va.png';
+import nh from '../../Hinh/nh.png';
+import gc from '../../Hinh/gc.png';
+import tien from '../../Hinh/tien.png';
 
 const { height, width } = Dimensions.get('window');
 
@@ -41,7 +46,7 @@ export default class Thu extends Component {
     luuThu() {
         console.log(this.state);
         console.log(this.props.navigation.state.params.id);
-        if(this.state.DateText === '' || this.state.soTien === ''){
+        if (this.state.DateText === '' || this.state.soTien === '') {
             Alert.alert(
                 'Lỗi',
                 'Vui lòng nhập đầy đủ thông tin',
@@ -53,40 +58,40 @@ export default class Thu extends Component {
                 { cancelable: false }
             )
         }
-        else{
-        fetch(global.urlAPI + 'themThu.php',
-            {
-                "method": "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    "idtaikhoan": this.props.navigation.state.params.id,
-                    "tenloaithu": this.state.nhom,
-                    "ghichu": this.state.ghiChu,
-                    "tien": parseInt(this.state.soTien),
-                    "ngay": this.state.DateText,
-                    "voiai": this.state.voiAi,
+        else {
+            fetch(global.urlAPI + 'themThu.php',
+                {
+                    "method": "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "idtaikhoan": this.props.navigation.state.params.id,
+                        "tenloaithu": this.state.nhom,
+                        "ghichu": this.state.ghiChu,
+                        "tien": parseInt(this.state.soTien),
+                        "ngay": this.state.DateText,
+                        "voiai": this.state.voiAi,
 
 
-                })
-            }
-        )
-            .then((res) => console.log('thêm thu thành công', res))
+                    })
+                }
+            )
+                .then((res) => console.log('thêm thu thành công', res))
 
-            .catch(e => {
-                Alert.alert(
-                    'Lỗi',
-                    'bị cái j j á',
-                    [
+                .catch(e => {
+                    Alert.alert(
+                        'Lỗi',
+                        'bị cái j j á',
+                        [
 
 
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: false }
-                )
-            });
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: false }
+                    )
+                });
             this.props.navigation.goBack();
         }
     }
@@ -128,7 +133,10 @@ export default class Thu extends Component {
                 <View style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#3499e1', margin: 5, borderRadius: 5, width: width - 20 }}
                 >
                     {/* onPress={() => { this.props.navigation.navigate('ManHinh_NhomChi', { nhom: this.state.nhom }) }}> */}
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Thuộc nhóm</Text>
+
+                    <View style={{ backgroundColor: '#3499e1', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={nh} style={{ width: 40, height: 40 }} />
+                    </View>
                     {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.nhom}</Text> */}
                     <Picker style={{ marginLeft: 20, flex: 3 }}
                         selectedValue={this.state.nhom}
@@ -148,8 +156,9 @@ export default class Thu extends Component {
                 </View>
                 <View style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#08cad6', margin: 5, borderRadius: 5, width: width - 20 }}>
                     {/* onPress={() => { this.props.navigation.navigate('ManHinh_VoiAiChi', { voiAi: this.state.voiAi }) }}>  */}
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Với</Text>
-                    {/* <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{this.state.voiAi}</Text> */}
+                    <View style={{ backgroundColor: '#08cad6', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={va} style={{ width: 40, height: 40 }} />
+                    </View>
                     <Picker style={{ marginLeft: 20, flex: 3 }}
                         selectedValue={this.state.voiAi}
                         onValueChange={(nhom) => {
@@ -164,11 +173,15 @@ export default class Thu extends Component {
                 </View>
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#fd6a60', margin: 5, borderRadius: 5, width: width - 20 }}
                     onPress={this.DatePickerMainFunctionCall.bind(this)}   >
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Thời gian</Text>
+                    <View style={{ backgroundColor: '#fd6a60', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={ngaythang} style={{ width: 40, height: 40 }} />
+                    </View>
                     <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 3 }}>{ngay}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#f06090', margin: 5, borderRadius: 5, width: width - 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Ghi chú</Text>
+                    <View style={{ backgroundColor: '#f06090', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={gc} style={{ width: 40, height: 40 }} />
+                    </View>
                     {/* <Text style={{fontSize: 20, fontWeight:'200', marginLeft:20, flex: 2}}>Ghi chú</Text> */}
                     <TextInput placeholder='Nhập ghi chú'
                         placeholderTextColor='rgba(255, 255, 255, 0.7)'
@@ -194,8 +207,9 @@ export default class Thu extends Component {
 
 
                 <TouchableOpacity style={{ flex: 1, width: width, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: '#8974b9', margin: 5, borderRadius: 5, width: width - 20 }}>
-                    <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 20, flex: 1 }}>Số tiền</Text>
-                    {/* <Text style={{fontSize: 20, fontWeight:'200', marginLeft:20, flex: 3}}>Số tiền</Text> */}
+                    <View style={{ backgroundColor: '#8974b9', flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+                        <Image source={tien} style={{ width: 40, height: 40 }} />
+                    </View>
                     <TextInput placeholder='Nhập số tiền'
                         placeholderTextColor='rgba(255, 255, 255, 0.7)'
                         returnKeyType='go' keyboardType='numeric'

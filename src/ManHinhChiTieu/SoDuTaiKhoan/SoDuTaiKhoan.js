@@ -16,8 +16,8 @@ export default class SoDuTaiKhoan extends Component {
     constructor(props){
         super(props);
         this.state = {
-           tongThu :'',
-           tongChi:'',
+        //    tongThu :'',
+        //    tongChi:'',
            soDuTaiKhoan:''
         };
 
@@ -48,12 +48,14 @@ export default class SoDuTaiKhoan extends Component {
         .catch(e => console.log(e));
      }
     render() {
+        tongthu = this.state.tongThu !== null ? this.state.tongThu : 0;
+        tongchi = this.state.tongChi !== null ? this.state.tongChi : 0;
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={{flex: 1,width: width- 20 , justifyContent: 'center', alignItems: 'center', backgroundColor:'#fd6a60', borderRadius:10, margin:10}}>
                 <Text>Số dư tài khoản
                 </Text>
-                <Text>{this.state.soDuTaiKhoan} đồng
+                <Text>{this.state.soDuTaiKhoan !== null ? this.state.soDuTaiKhoan : 0} đồng
                 </Text>
                 </View>
                 <View style={{ flex: 2, width:width, flexDirection:'row' , borderRadius:10}}>
@@ -61,13 +63,13 @@ export default class SoDuTaiKhoan extends Component {
                 <View  style={{ flex: 2, backgroundColor:'#8974b9', justifyContent: 'center', alignItems: 'center', borderRadius:10, marginLeft:10, marginBottom:10}}>
                     <Text>Tổng số tiền thu
                 </Text>
-                <Text>{this.state.tongThu} đồng
+                <Text>{tongthu} đồng
                 </Text>
                 </View>
                 <View style={{ flex: 2, backgroundColor:'#08cad6', justifyContent: 'center', alignItems: 'center', borderRadius:10, marginLeft:10, marginBottom:10, marginRight:10}}>
                 <Text>Tổng số tiền chi
                 </Text>
-                <Text>{this.state.tongChi} đồng
+                <Text>{tongchi} đồng
                 </Text>
 
                 </View>
