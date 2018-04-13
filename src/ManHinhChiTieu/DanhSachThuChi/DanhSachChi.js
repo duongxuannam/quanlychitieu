@@ -19,7 +19,7 @@ export default class DanhSachChi extends Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Danh sách chi',
         headerRight: <TouchableOpacity onPress={() => {
-           navigation.navigate('ManHinh_Chi', { id:navigation.state.params.id })
+            navigation.navigate('ManHinh_Chi', { id: navigation.state.params.id })
         }}>
             <Text style={{ marginRight: 20, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Thêm</Text>
         </TouchableOpacity>
@@ -142,9 +142,9 @@ export default class DanhSachChi extends Component {
         const rong = (
             <View style={{ justifyContent: 'center', alignItems: "center" }}>
                 <Text style={{ fontSize: 30, color: '#8974b9' }}>Danh sách rỗng</Text>
-                
+
                 <TouchableOpacity
-                    onPress={() => { this.layTatCaChi() } }>
+                    onPress={() => { this.layTatCaChi() }}>
 
 
                     <Image source={f5} style={{ width: 40, height: 40 }} />
@@ -156,25 +156,27 @@ export default class DanhSachChi extends Component {
                 refreshing={this.state.refresh}
                 onRefresh={() => this.refresh()}
                 data={this.state.mang}
-                renderItem={({ item }) =>
-                    <View style={{ flexDirection: 'row', width: width - 20, backgroundColor: '#08cad6', margin: 5, borderRadius: 10 }}>
-                        <TouchableOpacity style={{ padding: 10, flexDirection: 'row', flex: 6 }}
-                            onPress={() => { this.props.navigation.navigate('ManHinh_ChiTietChi', { id: item.key, idTaiKhoan: this.props.navigation.state.params.id }) }}>
+                renderItem={(item, i) => 
+                    
+                        <View id={i} style={{ flexDirection: 'row', width: width - 20, backgroundColor: '#08cad6', margin: 5, borderRadius: 10 }}>
+                            <TouchableOpacity style={{ padding: 10, flexDirection: 'row', flex: 6 }}
+                                onPress={() => { this.props.navigation.navigate('ManHinh_ChiTietChi', { id: item.key, idTaiKhoan: this.props.navigation.state.params.id }) }}>
 
-                            <View style={{ flex: 1, backgroundColor: '#08cad6', flex: 1, justifyContent: 'center', }}>
-                                <Image source={c} style={{ width: 40, height: 40 }} />
-                            </View>
-                            <View style={{ flex: 3 }}>
-                                <Text>Ngày: {moment(item.NGAY).format('DD-MM-YYYY')}</Text>
-                                <Text>Số tiền: {item.TIEN} đồng</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => this.thongbao(item.key)}>
-                                <Image source={daux} style={{ width: 17, height: 17 }} />
+                                <View style={{ flex: 1, backgroundColor: '#08cad6', flex: 1, justifyContent: 'center', }}>
+                                    <Image source={c} style={{ width: 40, height: 40 }} />
+                                </View>
+                                <View style={{ flex: 3 }}>
+                                    <Text>Ngày: {moment(item.NGAY).format('DD-MM-YYYY')}</Text>
+                                    <Text>Số tiền: {item.TIEN} đồng</Text>
+                                </View>
                             </TouchableOpacity>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <TouchableOpacity onPress={() => this.thongbao(item.key)}>
+                                    <Image source={daux} style={{ width: 17, height: 17 }} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
+               
                 }
 
             />
